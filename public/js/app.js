@@ -1,10 +1,18 @@
 class ProductList extends React.Component {
   render() {
-    return (
-      <div className='ui unstackable items'>
-        <Product />
-      </div>
-    );
+    const productComponents = Seed.products.map((product) => (
+      <Product
+        key={'product-' + product.id}
+        id={product.id}
+        title={product.title}
+        description={product.description}
+        url={product.url}
+        votes={product.votes}
+        submitterAvatarUrl={product.submitterAvatarUrl}
+        productImageUrl={product.productImageUrl}
+      />
+    ));
+    return <div className='ui unstackable items'>{productComponents}</div>;
   }
 }
 
@@ -13,16 +21,25 @@ class Product extends React.Component {
     return (
       <div className='item'>
         <div className='image'>
-          <img src='images/products/image-aqua.png' alt='Aqua' />
+          <img src={this.props.productImageUrl} />
         </div>
         <div className='middle aligned content'>
+          <div className='header'>
+            <a>
+              <i className='large caret up icon' />
+            </a>
+            {this.props.votes}
+          </div>
           <div className='description'>
-            <a href=''>Fort Knight</a>
-            <p>Authentic renaissance actors, delivered in just two weeks</p>
+            <a href={this.props.url}>{this.props.title}</a>
+            <p>{this.props.description}</p>
           </div>
           <div className='extra'>
             <span>Submited By:</span>
-            <img src='images/avatars/daniel.jpg' className='ui avatar image' />
+            <img
+              src={this.props.submitterAvatarUrl}
+              className='ui avatar image'
+            />
           </div>
         </div>
       </div>
